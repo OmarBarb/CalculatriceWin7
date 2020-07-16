@@ -1,0 +1,1 @@
+# CalculatriceWin7 est une calculatrice qui ressemble à la calculatrice de Windows 7. Je la met à votre disposition pour libre utilisation et pourquoi pas amélioration. C'est ma première application en tant développeur Android, mais ça marche bien.
