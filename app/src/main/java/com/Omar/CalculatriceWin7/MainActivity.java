@@ -38,8 +38,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //prevent landscape orientation = empêcher l'orientation paysage
-      //  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //  prevent landscape orientation = empêcher l'orientation paysage
+        //  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        //cacher l'ActionBar
+        getSupportActionBar().hide();
 
         //attribution des valeurs aux différentes variables
         btn0 = findViewById(R.id.btn0);
@@ -53,41 +56,42 @@ public class MainActivity extends AppCompatActivity {
         btn8 = findViewById(R.id.btn8);
         btn9 = findViewById(R.id.btn9);
 
-        btnPlus = findViewById(R.id.btnPlus);
-        btnMinus = findViewById(R.id.btnMinus);
-        btnMult = findViewById(R.id.btnMult);
-        btnDiv = findViewById(R.id.btnDiv);
-        btnDot = findViewById(R.id.btnDot);
+        btnPlus    = findViewById(R.id.btnPlus);
+        btnMinus   = findViewById(R.id.btnMinus);
+        btnMult    = findViewById(R.id.btnMult);
+        btnDiv     = findViewById(R.id.btnDiv);
+        btnDot     = findViewById(R.id.btnDot);
 
-        btnEqual = findViewById(R.id.btnEqual);
-        btn1SurX = findViewById(R.id.btn1SurX);
+        btnEqual   = findViewById(R.id.btnEqual);
+        btn1SurX   = findViewById(R.id.btn1SurX);
         btnPercent = findViewById(R.id.btnPercent);
-        btnRacine = findViewById(R.id.btnRacine);
+        btnRacine  = findViewById(R.id.btnRacine);
         btnPlusMin = findViewById(R.id.btnPlusMin);
-        btnC = findViewById(R.id.btnC);
-        btnCE = findViewById(R.id.btnCE);
-        btnBack = findViewById(R.id.btnBack);
+        btnC       = findViewById(R.id.btnC);
+        btnCE      = findViewById(R.id.btnCE);
+        btnBack    = findViewById(R.id.btnBack);
 
-        saisie = findViewById(R.id.saisie);
-        resultat = findViewById(R.id.resultat);
-
-        addition = false;
-        soustraction = false;
-        multiplication = false;
-        division = false;
-
-        //le son du clic à activer au toucher des boutons
-        final MediaPlayer clickSound = MediaPlayer.create(this, R.raw.click);
+        saisie     = findViewById(R.id.saisie);
+        resultat   = findViewById(R.id.resultat);
 
         //to save data on orientation change, on doit redéfinir onSaveInstanceState() en bas
         //pour garder les données quand on change l'orientation, on ajoute ça et
         //on redéfinit onSaveInstanceState() en dehors de onCreate()
-        if (savedInstanceState != null) {
-            textResultat = savedInstanceState.getString("textResultat");
-            textSaisi = savedInstanceState.getString("textSaisi");
-            saisie.setText(textSaisi);
-            resultat.setText(textResultat);
-        }//
+//        if (savedInstanceState != null) {
+//            textResultat = savedInstanceState.getString("textResultat");
+//            textSaisi = savedInstanceState.getString("textSaisi");
+//            saisie.setText(textSaisi);
+//            resultat.setText(textResultat);
+//        }//
+
+
+        addition       = false;
+        soustraction   = false;
+        multiplication = false;
+        division       = false;
+
+        //le son du clic à activer au toucher des boutons
+        final MediaPlayer clickSound = MediaPlayer.create(this, R.raw.click);
 
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -408,7 +412,7 @@ public class MainActivity extends AppCompatActivity {
                         resultat.setText(String.valueOf(decForm.format(1/input)));
                     }else {
                         saisie.setText(null);
-                        resultat.setText("Division par 0!");
+                        resultat.setText(getResources().getString(R.string.division_par_zero));
                     }
                 }catch (NumberFormatException e) {
                     try {
@@ -420,7 +424,7 @@ public class MainActivity extends AppCompatActivity {
                                 resultat.setText(String.valueOf(decForm.format(1 / input)));
                             } else {
                                 saisie.setText(null);
-                                resultat.setText("Division par 0!");
+                                resultat.setText(getResources().getString(R.string.division_par_zero));
                             }
                         }
                     }catch (NumberFormatException ex){Log.e("catch block", ex.toString());}
@@ -440,7 +444,7 @@ public class MainActivity extends AppCompatActivity {
                          resultat.setText(String.valueOf(decForm.format(Math.sqrt(input))));
                      }else{
                          saisie.setText(null);
-                         resultat.setText("Entrée invalide");
+                         resultat.setText(getResources().getString(R.string.entree_invalide));
                      }
                  } catch (NumberFormatException e){
                      try {
@@ -538,14 +542,32 @@ public class MainActivity extends AppCompatActivity {
 
 
     //to save data on orientation change
+    //appelée entre onPause() et onStop()
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        textSaisi = saisie.getText().toString();
-        textResultat = resultat.getText().toString();
-        outState.putString("textSaisi", textSaisi);
-        outState.putString("textResultat", textResultat);
+
+        Log.e("onSaveInstanceState()", "appelée");
+
+//        outState.putString("textSaisi", saisie.getText().toString());
+//        outState.putString("textResultat", resultat.getText().toString());
+
+        outState.putSerializable("textSaisi", saisie.getText().toString());
+        outState.putSerializable("textResultat", resultat.getText().toString());
+
     }//fin onSaveInstanceState
+
+    //Récupérer les données enregistrées dans onSaveInstanceState()
+    //appelée entre onStart() et onResume()
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        textResultat = savedInstanceState.getString("textResultat");
+        textSaisi = savedInstanceState.getString("textSaisi");
+        saisie.setText(textSaisi);
+        resultat.setText(textResultat);
+    }
 
 
 }//fin de la classe MainActivity

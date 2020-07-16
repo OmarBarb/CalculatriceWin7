@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name">CalculatriceWin7</string>
+    <string name="app_name">Win7 Calculator</string>
     <string name="plus">+</string>
     <string name="moins">-</string>
     <string name="multiplier">*</string>
     <string name="diviser">÷</string>
     <string name="unSurX">1/x</string>
+    <string name="division_par_zero">Division by 0!</string>
+    <string name="entree_invalide">invalid input</string>
 
 </resources>

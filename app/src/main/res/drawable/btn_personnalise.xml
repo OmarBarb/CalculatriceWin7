@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true"><!-- Quand le bouton est pressé -->
+
+    <!-- Quand le bouton est pressé -->
+    <item android:state_pressed="true">
         <shape xmlns:android="http://schemas.android.com/apk/res/android"
             android:shape="rectangle">
             <gradient
@@ -24,7 +26,9 @@
                 android:dashWidth="8dp"/>
         </shape>
     </item>
-    <item android:state_pressed="false"><!-- Quand le bouton n'est pas pressé -->
+
+    <!-- Quand le bouton n'est pas pressé -->
+    <item android:state_pressed="false">
 
         <!-- la forme -->
         <shape xmlns:android="http://schemas.android.com/apk/res/android"

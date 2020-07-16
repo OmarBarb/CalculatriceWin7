@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="app_name">Calculatrice Win7</string>
+    <string name="plus">+</string>
+    <string name="moins">-</string>
+    <string name="multiplier">*</string>
+    <string name="diviser">÷</string>
+    <string name="unSurX">1/x</string>
+    <string name="division_par_zero">Division par 0!</string>
+    <string name="entree_invalide">Entrée invalide</string>
+
+</resources>
